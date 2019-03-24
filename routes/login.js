@@ -1,8 +1,11 @@
-const User = require('../../models/Registration');
-const UserSession = require('../../models/UserSession');
+const User = require('../models/Registration');
+const UserSession = require('../models/UserSession');
+const express = require('express');
+const router = express.Router();
 
-module.exports = (app) => {
-  app.post('login',(req,res,next)=> {
+
+router.post('/login',function(req,res,next){
+    console.log(req.body);
     const {body} = req;
     const {
       pswd
@@ -23,7 +26,7 @@ module.exports = (app) => {
           message: 'Password cannot be empty'
         });
       }
-    email = email.toLowerCase();
+    //email = email.toLowerCase();
 
   User.find({
     name : name
@@ -60,6 +63,7 @@ module.exports = (app) => {
             res.status(200).send({
               success: true,
               message:'Logged in successfully',
+              isReviewer: user.isReviewer,
               token: doc._id
             });
           }
@@ -68,4 +72,5 @@ module.exports = (app) => {
     }
   });
 });
-};
+
+module.exports = router;

@@ -28,15 +28,19 @@ export default class LoginForm extends React.Component {
         };
 
         try {
-            const response = loginAPI(requestData);
-            if (response.data.status === 200) {
+            const response = loginAPI(requestData)
+            response.then((data) => {
+              console.log("data",data);
+            })
+            console.log("response",response);
+            /*if (response.data.status === 200) {
                 if (!response.data.accessToken) {
                     this.reset();
                     return;
                 }
 
-                //storeData('accessToken', response.data.accessToken);
-            }
+              //  storeData('accessToken', response.data.accessToken);
+            }*/
         } catch (e) {
             console.log(e);
         }

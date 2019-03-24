@@ -1,8 +1,9 @@
-const User = require('../../models/Registration');
+const User = require('../models/Registration');
+const express = require('express');
+const router = express.Router();
 
-module.exports = (app) => {
-
-  app.post('createuser',(req,res,next)=>{
+router.post('/createuser',function(req,res,next){
+console.log(req.body);
     const {body} = req;
     const {
       email,
@@ -11,13 +12,13 @@ module.exports = (app) => {
       isReviewer
     }=body;
     if(!name){
-      res.status(101).send({
+      return res.status(101).send({
         success: false,
         message: 'Username cannot be empty'
       });
     }
       if(!pswd){
-        res.status(102).send({
+        return res.status(102).send({
           success: false,
           message: 'Password cannot be empty'
         });
@@ -33,7 +34,7 @@ module.exports = (app) => {
             message:'Error: Server error'});
         }
         else if(existingUsers.length >0){
-          res.status(201).send({
+          return res.status(201).send({
             success: false,
             message: 'Error: Username already exists'});
         }
@@ -48,12 +49,12 @@ module.exports = (app) => {
           newUser.save((err,user)=>{
             if(err){
               if(err){
-                res.status(404).send({
+                return res.status(404).send({
                   success: false,
                   message:'Error: Server error'});
               }
               else{
-                  res.status(100).send({
+                  return res.status(100).send({
                     success: true,
                     message:'Signed up successfully'});
                     console.log(req.body);
@@ -63,5 +64,6 @@ module.exports = (app) => {
         }
       });
 
-  });
-};
+});
+
+module.exports = router;

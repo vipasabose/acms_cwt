@@ -1,8 +1,10 @@
-const User = require('../../models/Registration');
-const UserSession = require('../../models/UserSession');
+const User = require('../models/Registration');
+const UserSession = require('../models/UserSession');
 
-module.exports = (app) => {
-  app.get('verify',(req,res,next)=>{
+const express = require('express');
+const router = express.Router();
+
+  router.get('verify',(req,res,next)=>{
     //get the token and verify token
     const {query }= req;
     const {token }=query;
@@ -33,4 +35,6 @@ module.exports = (app) => {
   }
   });
 });
-};
+
+
+module.exports = router;
