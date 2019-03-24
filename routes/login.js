@@ -4,7 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 
-router.post('/login',function(req,res,next){
+//router.post('/login',function(req,res,next){
+function login(req,res,next) {
+
+
     console.log(req.body);
     const {body} = req;
     const {
@@ -71,6 +74,6 @@ router.post('/login',function(req,res,next){
       }
     }
   });
-});
+};
 
-module.exports = router;
+module.exports = login;

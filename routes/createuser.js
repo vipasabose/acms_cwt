@@ -2,7 +2,10 @@ const User = require('../models/Registration');
 const express = require('express');
 const router = express.Router();
 
-router.post('/createuser',function(req,res,next){
+//router.post('/createuser',function(req,res,next){
+function signup(req,res,next) {
+
+
 console.log(req.body);
     const {body} = req;
     const {
@@ -12,18 +15,18 @@ console.log(req.body);
       isReviewer
     }=body;
     if(!name){
-      return res.status(101).send({
+      res.status(101).send({
         success: false,
         message: 'Username cannot be empty'
       });
     }
       if(!pswd){
-        return res.status(102).send({
+        res.status(102).send({
           success: false,
           message: 'Password cannot be empty'
         });
       }
-      email = email.toLowerCase();
+      //email = email.toLowerCase();
 
       User.find({
         name:name
@@ -34,7 +37,7 @@ console.log(req.body);
             message:'Error: Server error'});
         }
         else if(existingUsers.length >0){
-          return res.status(201).send({
+          res.status(201).send({
             success: false,
             message: 'Error: Username already exists'});
         }
@@ -44,17 +47,17 @@ console.log(req.body);
 
           newUser.email = email;
           newUser.name = name;
-          newUser.pswd = generateHash(pswd);
+          newUser.pswd = newUser.generateHash(pswd);
           newUser.isReviewer = isReviewer;
           newUser.save((err,user)=>{
             if(err){
               if(err){
-                return res.status(404).send({
+                res.status(404).send({
                   success: false,
                   message:'Error: Server error'});
               }
               else{
-                  return res.status(100).send({
+                  res.status(100).send({
                     success: true,
                     message:'Signed up successfully'});
                     console.log(req.body);
@@ -64,6 +67,6 @@ console.log(req.body);
         }
       });
 
-});
+};
 
-module.exports = router;
+module.exports = signup;

@@ -16,7 +16,7 @@ const registrationSchema = new mongoose.Schema({
 });
 
 registrationSchema.methods.generateHash = function(pswd){
-  return bcrypt.hashSync(pswd,bcryt.genSaltSync(8),null);
+  return bcrypt.hashSync(pswd,bcrypt.genSaltSync(8),null);
 }
 
 registrationSchema.methods.validPassword = function (pswd) {

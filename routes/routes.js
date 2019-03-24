@@ -1,15 +1,18 @@
-var login = require('./login.js');
+var login = require('./login');
 var createuser = require('./createuser');
 var verify = require('./verify');
 var logout = require('./logout');
 
-  //router.post('/login',login.login);
-  //router.post('/createuser',createuser.createuser);
+const express = require('express');
+const router = express.Router();
+
+  router.post('/login',login);
+  router.post('/createuser',createuser);
   //router.post('/verify',function(req, res,next){verify.verify});
   //router.post('/logout',function(req, res,next){logout.logout});
 
 
-module.exports=login;
-module.exports=createuser;
-module.exports=verify;
-module.exports=logout;
+module.exports=router;
+//module.exports=createuser;
+//module.exports=verify;
+//module.exports=logout;

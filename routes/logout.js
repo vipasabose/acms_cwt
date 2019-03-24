@@ -4,7 +4,7 @@ const UserSession = require('../models/UserSession');
 const express = require('express');
 const router = express.Router();
 
-  router.get('verify',(req,res,next)=>{
+  router.get('/logout',function(req,res,next){
     //get the token and verify token
     const {query }= req;
     const {token }=query;
