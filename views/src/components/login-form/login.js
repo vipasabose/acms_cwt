@@ -2,6 +2,10 @@ import React from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
 import {loginAPI} from "../../utils/HTTP";
 import {Link} from "react-router-dom";
+import {getData, storeData} from "../../utils/storage";
+import {toast} from "react-toastify";
+
+const Toaster = ({message}) => <div>{message}</div>;
 
 export default class LoginForm extends React.Component {
 
@@ -10,7 +14,9 @@ export default class LoginForm extends React.Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            authenticated: false,
+            reviewer: 'false'
         }
     }
 
@@ -20,34 +26,76 @@ export default class LoginForm extends React.Component {
         });
     };
 
-    authenticate = (event) => {
+    authenticate = async (event) => {
         event.preventDefault();
         const requestData = {
-            username: this.state.username,
-            password: this.state.password
+            name: this.state.username,
+            pswd: this.state.password
         };
 
+        const valid = this.validationChecks();
+        if (!valid) {
+            return;
+        }
+
         try {
-            const response = loginAPI(requestData)
-            response.then((data) => {
-              console.log("data",data);
-            })
-            console.log("response",response);
-            /*if (response.data.status === 200) {
-                if (!response.data.accessToken) {
+            const response = await loginAPI(requestData);
+            if (response.status === 200) {
+                if (!response.data.token) {
                     this.reset();
                     return;
                 }
+            }
 
-              //  storeData('accessToken', response.data.accessToken);
-            }*/
+            if (response.data.isReviewer === 'true') {
+                this.setState({
+                    reviewer: "true"
+                });
+            }
+
+            storeData('token', response.data.token);
+            this.setState({
+                authenticated: true
+            });
+
+            toast.success(<Toaster message={response.data.message}/>);
         } catch (e) {
             console.log(e);
         }
     };
 
+    componentDidUpdate() {
+        if (this.state.authenticated && getData('token') && this.state.reviewer === "true") {
+            this.props.history.push("/reviewerHome");
+        } else if (this.state.authenticated && getData('token') && this.state.reviewer === "false"){
+            this.props.history.push("/home");
+        }
+    }
+
+    validationChecks = () => {
+        if (!this.state.username) {
+            toast.error(<Toaster message={'Username is required'}/>);
+            return false;
+        }
+
+        if (!this.state.password) {
+            toast.error(<Toaster message={'Password is required'}/>);
+            return false;
+        }
+
+        return true;
+    };
+
+    reset = () => {
+        this.setState({
+            username: '',
+            password: ''
+        });
+    };
+
     validateForm = () => {
-        return this.state.username.length > 0 && this.state.password.length > 0;
+        return true;
+        // return this.state.username.length > 0 && this.state.password.length > 0;
     };
 
     render() {

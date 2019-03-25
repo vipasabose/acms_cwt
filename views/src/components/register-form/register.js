@@ -2,6 +2,9 @@ import React from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
 import {createUserAPI} from "../../utils/HTTP";
 import {Link} from "react-router-dom";
+import {toast} from 'react-toastify';
+
+const Toaster = ({message}) => <div>{message}</div>;
 
 export default class RegisterForm extends React.Component {
 
@@ -11,7 +14,9 @@ export default class RegisterForm extends React.Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            isReviewer: false,
+            registered: false
         }
     }
 
@@ -21,26 +26,68 @@ export default class RegisterForm extends React.Component {
         });
     };
 
-    createUser = (event) => {
+    handleToggle = (event) => {
+        this.setState({
+            isReviewer: !!event.target.checked
+        });
+    };
+
+    createUser = async (event) => {
         event.preventDefault();
         const requestData = {
-            username: this.state.username,
+            name: this.state.username,
             email: this.state.email,
-            password: this.state.password
+            pswd: this.state.password,
+            isReviewer: this.state.isReviewer
         };
 
-        try {
-            const response = createUserAPI(requestData);
-            if (response.data.status === 200) {
+        const valid = this.validationChecks();
+        if (!valid) {
+            return;
+        }
 
+        try {
+            const response = await createUserAPI(requestData);
+            console.log(response);
+            if (response.status === 201) {
+                toast.success(<Toaster message={response.data.message}/>);
+                this.setState({
+                    registered: true
+                })
             }
         } catch (e) {
             console.log(e);
         }
     };
 
+    validationChecks = () => {
+        if (!this.state.username) {
+            toast.error(<Toaster message={'Username is required'}/>);
+            return false;
+        }
+
+        if (!this.state.email) {
+            toast.error(<Toaster message={'Email is required'}/>);
+            return false;
+        }
+
+        if (!this.state.password) {
+            toast.error(<Toaster message={'Password is required'}/>);
+            return false;
+        }
+
+        return true;
+    };
+
+    componentDidUpdate() {
+        if (this.state.registered) {
+            this.props.history.push('/');
+        }
+    }
+
     validateForm = () => {
-        return this.state.username.length > 0 && this.state.password.length > 0;
+        return true
+        // return this.state.username.length > 0 && this.state.password.length > 0;
     };
 
     render() {
@@ -66,7 +113,7 @@ export default class RegisterForm extends React.Component {
                             <Form.Control value={this.state.password} onChange={this.handleChange} type="password"/>
                         </Form.Group>
                         <Form.Group controlId="reviewer">
-                            <Form.Check type="checkbox" label="Reviewer"/>
+                            <Form.Check type="checkbox" label="Reviewer" onChange={this.handleToggle}/>
                         </Form.Group>
                         <Button block disabled={!this.validateForm()} type="submit">
                             Register
