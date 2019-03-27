@@ -1,4 +1,7 @@
 const User = require('../models/Registration');
+const contributor = require('../models/ContributorSchema');
+const reviewer = require('../models/ReviewerSchema');
+
 const express = require('express');
 const router = express.Router();
 
@@ -6,7 +9,7 @@ const router = express.Router();
 function signup(req,res,next) {
 
 
-console.log(req.body);
+//console.log(req.body);
     const {body} = req;
     const {
       email,
@@ -51,19 +54,28 @@ console.log(req.body);
           newUser.isReviewer = isReviewer;
           newUser.save((err,user)=>{
             if(err){
-              if(err){
                 res.status(404).send({
                   success: false,
                   message:'Error: Server error'});
               }
               else{
-                  res.status(100).send({
+                  res.status(400).send({
                     success: true,
                     message:'Signed up successfully'});
                     console.log(req.body);
               }
-            }
+
           });
+          if(isReviewer === true){
+            const newReviewer = new reviewer();
+            newReviewer.reviewer = name;
+            newReviewer.save();
+          }
+          else {
+            const newContributor = new contributor();
+            newContributor.name = name;
+            newContributor.save();
+          }
         }
       });
 
