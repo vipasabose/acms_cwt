@@ -3,13 +3,15 @@ var createuser = require('./createuser');
 var verify = require('./verify');
 var logout = require('./logout');
 var createproject = require('./createproject');
+var contributor = require('./contributor');
 
 const express = require('express');
 const router = express.Router();
 
   router.post('/login',login);
   router.post('/createuser',createuser);
-  //router.post('/createproject',createproject);
+  router.post('/createproject',createproject);
+  router.post('/contributor',contributor);
   //router.post('/verify',function(req, res,next){verify.verify});
   //router.post('/logout',function(req, res,next){logout.logout});
 
