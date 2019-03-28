@@ -15,7 +15,7 @@ export default class Register extends React.Component {
 
                     </Col>
                     <Col sm={6}>
-                        <RegisterForm history={this.props.history}/>
+                        <RegisterForm history={this.props.history} isReviewer={false}/>
                     </Col>
                 </Row>
             </Container>

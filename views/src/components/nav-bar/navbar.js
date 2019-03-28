@@ -4,7 +4,7 @@ import CreateProjectModal from "../create-project-modal/create-project-modal";
 import {getData, removeData} from "../../utils/storage";
 import {toast} from "react-toastify";
 
-const Toaster = ({ message }) => <div>{message}</div>;
+const Toaster = ({message}) => <div>{message}</div>;
 
 export default class CustomNabvar extends React.Component {
     constructor(props) {
@@ -45,9 +45,11 @@ export default class CustomNabvar extends React.Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link onClick={this.openCreateProjectModal}>
-                                Create Project
-                            </Nav.Link>
+                            {
+                                !this.props.isReviewer ? <Nav.Link onClick={this.openCreateProjectModal}>
+                                    Create Project
+                                </Nav.Link> : null
+                            }
                         </Nav>
                         <Nav pullRight>
                             <Nav.Link onClick={this.openDropDown}>
@@ -56,7 +58,10 @@ export default class CustomNabvar extends React.Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <CreateProjectModal openModal={this.state.openModal} openCreateProjectModal={this.openCreateProjectModal}/>
+                <CreateProjectModal openModal={this.state.openModal}
+                                    openCreateProjectModal={this.openCreateProjectModal}
+                                    addProjects={this.props.addProjects}
+                />
             </>
         );
     }

@@ -9,3 +9,7 @@ export const loginAPI = async (requestData) => {
 export const createUserAPI = async (requestData) => {
     return await axios.post(`${BASE_URL}/createuser`, requestData);
 };
+
+export const createProjectAPI = async (requestData) => {
+    return await axios.post(`${BASE_URL}/createproject`, requestData);
+};

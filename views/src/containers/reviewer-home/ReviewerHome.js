@@ -17,7 +17,7 @@ export default class ReviewerHome extends React.Component {
     render() {
         return (
             <>
-                <CustomNavbar history={this.props.history}/>
+                <CustomNavbar history={this.props.history} isReviewer={true}/>
                 <div className='container mt-5'>
                     <Card>
                         <Card.Body>

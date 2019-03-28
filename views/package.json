@@ -10,6 +10,7 @@
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-tagsinput": "^3.19.0",
     "react-toastify": "^4.5.2"
   },
   "scripts": {

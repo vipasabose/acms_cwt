@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
             username: '',
             password: '',
             authenticated: false,
-            reviewer: 'false'
+            reviewer: false
         }
     }
 
@@ -47,9 +47,9 @@ export default class LoginForm extends React.Component {
                 }
             }
 
-            if (response.data.isReviewer === 'true') {
+            if (response.data.isReviewer === true) {
                 this.setState({
-                    reviewer: "true"
+                    reviewer: true
                 });
             }
 
@@ -65,9 +65,9 @@ export default class LoginForm extends React.Component {
     };
 
     componentDidUpdate() {
-        if (this.state.authenticated && getData('token') && this.state.reviewer === "true") {
+        if (this.state.authenticated && getData('token') && this.state.reviewer === true) {
             this.props.history.push("/reviewerHome");
-        } else if (this.state.authenticated && getData('token') && this.state.reviewer === "false"){
+        } else if (this.state.authenticated && getData('token') && this.state.reviewer === false){
             this.props.history.push("/home");
         }
     }
