@@ -4,10 +4,11 @@ const Schema = mongoose.Schema;
 const ProjectSchema = new Schema({
 
 
-   // pid: String,
+
     pname:String,
     reviewer:{type: Schema.Types.ObjectId, ref: 'Reviewer' },
-    contributors    : [{type: Schema.Types.ObjectId, ref: 'Contributor' }]
+    contributors    : [{type: Schema.Types.ObjectId, ref: 'Contributer' }],
+    versions    : [{type: Schema.Types.ObjectId, ref: 'ProjectVersion' }]
 
 
 });

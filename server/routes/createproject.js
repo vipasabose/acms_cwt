@@ -113,7 +113,7 @@ function newproject(req,res,next){
                   res.status(400).send({
                     success: true,
                     message:'Project created successfully'});
-                    //console.log(req.body);
+                    //console.log(newProject.__v);
               }
 
           });
@@ -122,13 +122,13 @@ function newproject(req,res,next){
 
 
     //console.log(newProject.contributors.length);
-    PrContributor.forEach(function(c){
+    //PrContributor.forEach(function(c){
       //newProject.contributors.push(c._id);
       //console.log(c._id);
-    });
+    //});
     //console.log(newProject.reviewer);
     //console.log(PrReviewer.reviewing.length);
-    var num = PrReviewer.reviewing.length;
+    //var num = PrReviewer.reviewing.length;
     /**/
 };
 
