@@ -18,13 +18,13 @@ function login(req,res,next) {
     } = body;
 
     if(!name){
-      res.status(101).send({
+      res.status(400).send({
         success: false,
         message: 'Username cannot be empty'
       });
     }
       if(!pswd){
-        res.status(102).send({
+        res.status(400).send({
           success: false,
           message: 'Password cannot be empty'
         });
@@ -40,7 +40,7 @@ function login(req,res,next) {
         message:'Error: Server error'});
     }
     else if(users.length !=1){
-      res.status(301).send({
+      res.status(400).send({
         success: false,
         message:'Error: Username does not exist'
       });
@@ -48,7 +48,7 @@ function login(req,res,next) {
     else {
       const user = users[0];
       if(!user.validPassword(pswd)){
-        res.status(302).send({
+        res.status(400).send({
           success: false,
           message:'Error: Wrong password'});
       }

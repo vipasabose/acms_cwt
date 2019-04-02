@@ -18,13 +18,13 @@ function signup(req,res,next) {
       isReviewer
     }=body;
     if(!name){
-      res.status(101).send({
+      res.status(400).send({
         success: false,
         message: 'Username cannot be empty'
       });
     }
       if(!pswd){
-        res.status(102).send({
+        res.status(400).send({
           success: false,
           message: 'Password cannot be empty'
         });
@@ -40,7 +40,7 @@ function signup(req,res,next) {
             message:'Error: Server error'});
         }
         else if(existingUsers.length >0){
-          res.status(201).send({
+          res.status(400).send({
             success: false,
             message: 'Error: Username already exists'});
         }
@@ -59,7 +59,7 @@ function signup(req,res,next) {
                   message:'Error: Server error'});
               }
               else{
-                  res.status(400).send({
+                  res.status(201).send({
                     success: true,
                     message:'Signed up successfully'});
                     console.log(req.body);

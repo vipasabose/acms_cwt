@@ -24,7 +24,7 @@ const router = express.Router();
           message:'Error: Server error'});
       }
       else {
-        res.status(300).send({
+        res.status(200).send({
           success: true,
           message:'Session verified'
     });

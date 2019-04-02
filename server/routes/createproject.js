@@ -14,19 +14,19 @@ function newproject(req,res,next){
     reviewer
   }=body;
   if(!pname){
-    res.status(101).send({
+    res.status(400).send({
       success: false,
       message: 'Project name cannot be empty'
     });
   }
     if(!contributors){
-      res.status(102).send({
+      res.status(400).send({
         success: false,
         message: 'One or more contributors is required'
       });
     }
     if(!reviewer){
-      res.status(103).send({
+      res.status(400).send({
         success: false,
         message: 'Reviewer field cannot be empty'
       });
@@ -43,7 +43,7 @@ function newproject(req,res,next){
             message:'Error: Server error'});
         }
         else if(existingUsers.length === 0){
-          res.status(201).send({
+          res.status(400).send({
             success: false,
             message: 'Error: Contributor does not exist',
             name: name});
@@ -70,7 +70,7 @@ function newproject(req,res,next){
           message:'Error: Server error'});
       }
       else if(existingUsers.length === 0){
-        res.status(201).send({
+        res.status(400).send({
           success: false,
           message: 'Error: Reviewer does not exist'});
       }
@@ -110,7 +110,7 @@ function newproject(req,res,next){
 
                   //project.save();
 
-                  res.status(400).send({
+                  res.status(201).send({
                     success: true,
                     message:'Project created successfully'});
                     //console.log(newProject.__v);

@@ -38,7 +38,7 @@ function saveproject(req,res,next){
               //project.save();
               projectentry.versions.push(projversion._id);
               projectentry.save();
-              res.status(400).send({
+              res.status(201).send({
                 success: true,
                 message:'Project saved successfully'});
                 //console.log(newProject.__v);

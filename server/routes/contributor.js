@@ -30,7 +30,7 @@ function contributor(req,res,next) {
              message:'Error: Server error'});
          }
          else if(existingUsers.length === 0){
-           res.status(201).send({
+           res.status(400).send({
              success: false,
              message: 'Error: Contributor does not exist'});
          }
@@ -48,13 +48,13 @@ function contributor(req,res,next) {
                  message:'Error: Server error'});
              }
              else if(existingUsers.length === 0){
-               res.status(201).send({
+               res.status(400).send({
                  success: false,
                  message: 'Error: Project does not exist'});
              }
              else {
 
-               res.status(400).send({
+               res.status(200).send({
                  success:true,
                  message: 'Projects found'
                });
