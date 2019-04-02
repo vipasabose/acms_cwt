@@ -1,7 +1,7 @@
-const Contributors = require('../models/ContributorSchema');
+const Reviewer = require('../models/ReviewerSchema');
 const Projects = require('../models/ProjectSchema');
 
-function contributor(req,res,next) {
+function reviewer(req,res,next) {
   var pdetails =  new Array();
   const {body} = req;
   const {
@@ -23,7 +23,7 @@ function contributor(req,res,next) {
            }
        });*/
 
-       Contributors.find({name:name},(err,existingUsers)=>{
+       Reviewer.find({reviewer:name},(err,existingUsers)=>{
          if(err){
            res.status(404).send({
              success: false,
@@ -37,7 +37,7 @@ function contributor(req,res,next) {
          else{
            //console.log(existingUsers[0].subscribing[10]);
            var pid = new Array();
-           pid = existingUsers[0].subscribing;
+           pid = existingUsers[0].reviewing;
            var x=0;
            //console.log(pid);
            for(i=0;i<pid.length;i++)
@@ -85,4 +85,4 @@ function contributor(req,res,next) {
        });
 };
 
-module.exports = contributor;
+module.exports = reviewer;
