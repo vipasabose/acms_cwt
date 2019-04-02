@@ -61,7 +61,7 @@ function reviewer(req,res,next) {
 
                });*/
 
-               var json = {pid: projects[0]._id, pname : projects[0].pname};
+               var json = {pid: projects[0]._id, pname : projects[0].pname, pver:projects[0].__v};
                //console.log(json);
                pdetails.push(json);
                //console.log(pdetails);
