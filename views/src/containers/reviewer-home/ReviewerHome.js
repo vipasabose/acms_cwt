@@ -2,10 +2,15 @@ import React from 'react';
 import CustomNavbar from "../../components/nav-bar/navbar";
 import {getData} from "../../utils/storage";
 import {Button, Card} from "react-bootstrap";
+import { getReviewerProjectsAPI } from '../../utils/HTTP';
 
 export default class ReviewerHome extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            projects: []
+        }
     }
 
     componentWillMount() {
@@ -14,14 +19,46 @@ export default class ReviewerHome extends React.Component {
         }
     }
 
+    async componentDidMount() {
+        await this.fetchProjectList()
+      }
+    
+    addProjects = (project) => {
+        this.setState({
+            projects: [...this.state.projects, project]
+        });
+    };
+    
+    fetchProjectList = async () => {
+          const requestData = {
+            // This needs to be changed when user data will come from backend
+            name: localStorage.getItem('name')
+          }
+    
+          try {
+            const response = await getReviewerProjectsAPI(requestData);
+            if (response.status === 200) {
+              const projectList = response.data.pdetails;
+              projectList.forEach((project) => {
+                  this.addProjects(project);
+              })
+            }
+          } catch (e) {
+            console.log(e);
+          }
+      };
+
     render() {
         return (
             <>
                 <CustomNavbar history={this.props.history} isReviewer={true}/>
-                <div className='container mt-5'>
+                {
+                    this.state.projects.map((item, index) => 
+                        <li key={index} style={{listStyleType: 'none'}}>
+                            <div className='container mt-5'>
                     <Card>
                         <Card.Body>
-                            <Card.Title> Project 1 </Card.Title> <span className='badge badge-success'> Accepted</span>
+                            <Card.Title> {item.pname} </Card.Title> <span className='badge badge-warning'> Pending</span>
                         </Card.Body>
                         <Card.Footer>
                             <div className='text-right'>
@@ -30,30 +67,9 @@ export default class ReviewerHome extends React.Component {
                         </Card.Footer>
                     </Card>
                 </div>
-                <div className='container mt-5'>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title> Project 2 </Card.Title> <span className='badge badge-warning'> Pending</span>
-                        </Card.Body>
-                        <Card.Footer>
-                            <div className='text-right'>
-                                <Button variant="primary">Read</Button> &nbsp;
-                            </div>
-                        </Card.Footer>
-                    </Card>
-                </div>
-                <div className='container mt-5'>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title> Project 3 </Card.Title> <span className='badge badge-danger'> Rejected</span>
-                        </Card.Body>
-                        <Card.Footer>
-                            <div className='text-right'>
-                                <Button variant="primary">Read</Button> &nbsp;
-                            </div>
-                        </Card.Footer>
-                    </Card>
-                </div>
+                        </li>
+                    )
+                }
             </>
         );
     }

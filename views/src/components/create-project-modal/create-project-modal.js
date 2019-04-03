@@ -1,9 +1,8 @@
 import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import TagsInput from "react-tagsinput";
-
 import "react-tagsinput/react-tagsinput.css";
-import { createProjectAPI } from "../../utils/HTTP";
+import { createProjectAPI, getProjectsAPI } from "../../utils/HTTP";
 import { toast } from "react-toastify";
 
 const Toaster = ({ message }) => <div>{message}</div>;
@@ -15,7 +14,7 @@ export default class CreateProjectModal extends React.Component {
     this.state = {
       pname: "",
       reviewer: "",
-      contributors: []
+      contributors: [],
     };
   }
 
@@ -44,7 +43,7 @@ export default class CreateProjectModal extends React.Component {
 
     try {
       const response = await createProjectAPI(requestData);
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success(<Toaster message={response.data.message} />);
         this.props.openCreateProjectModal();
         this.props.addProjects(requestData);
@@ -53,10 +52,6 @@ export default class CreateProjectModal extends React.Component {
     } catch (e) {
       console.log(e);
     }
-
-    // this.props.openCreateProjectModal();
-    // this.props.addProjects(requestData);
-    // this.props.openCreateProjectModal();
   };
 
   reset = () => {

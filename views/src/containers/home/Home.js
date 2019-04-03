@@ -2,6 +2,7 @@ import React from 'react';
 import CustomNavbar from "../../components/nav-bar/navbar";
 import {getData} from "../../utils/storage";
 import ProjectCard from "../../components/project-card/projectcard";
+import { getProjectsAPI } from '../../utils/HTTP';
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -19,11 +20,33 @@ export default class Home extends React.Component {
     }
 
     addProjects = (project) => {
-        console.log(project);
         this.setState({
             projects: [...this.state.projects, project]
         });
     };
+
+    async componentDidMount() {
+        await this.fetchProjectList()
+      }
+    
+      fetchProjectList = async () => {
+          const requestData = {
+            // This needs to be changed when user data will come from backend
+            name: localStorage.getItem('name')
+          }
+    
+          try {
+            const response = await getProjectsAPI(requestData);
+            if (response.status === 200) {
+              const projectList = response.data.pdetails;
+              projectList.forEach((project) => {
+                  this.addProjects(project);
+              })
+            }
+          } catch (e) {
+            console.log(e);
+          }
+      };
 
     render() {
         return (
@@ -40,5 +63,11 @@ export default class Home extends React.Component {
                 }
             </>
         );
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            projects: []
+        });
     }
 }

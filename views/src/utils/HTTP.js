@@ -13,3 +13,11 @@ export const createUserAPI = async (requestData) => {
 export const createProjectAPI = async (requestData) => {
     return await axios.post(`${BASE_URL}/createproject`, requestData);
 };
+
+export const getProjectsAPI = async (requestData) => {
+    return await axios.post(`${BASE_URL}/contributor`, requestData);
+};
+
+export const getReviewerProjectsAPI = async (requestData) => {
+    return await axios.post(`${BASE_URL}/reviewer`, requestData);
+};

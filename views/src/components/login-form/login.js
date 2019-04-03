@@ -54,6 +54,7 @@ export default class LoginForm extends React.Component {
             }
 
             storeData('token', response.data.token);
+            storeData('name', response.data.name);
             this.setState({
                 authenticated: true
             });

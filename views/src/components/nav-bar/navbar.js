@@ -22,6 +22,7 @@ export default class CustomNabvar extends React.Component {
         });
 
         removeData('token');
+        removeData('name');
         toast.success(<Toaster message={'Logged Out Successfully'}/>);
     };
 
