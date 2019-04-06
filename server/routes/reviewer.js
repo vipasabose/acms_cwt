@@ -1,5 +1,6 @@
 const Reviewer = require('../models/ReviewerSchema');
 const Projects = require('../models/ProjectSchema');
+const Version = require('../models/ProjectVersionSchema');
 
 function reviewer(req,res,next) {
   var pdetails =  new Array();
@@ -48,25 +49,60 @@ function reviewer(req,res,next) {
                  success: false,
                  message:'Error: Server error'});
              }
-             else if(existingUsers.length === 0){
+             else if(projects.length === 0){
+                                  //console.log(projects);
                res.status(400).send({
                  success: false,
                  message: 'Error: Project does not exist'});
              }
              else {
-               x=x+1;
+
                /*res.status(200).send({
                  success:true,
                  message: 'Projects found'
 
                });*/
+               var name  = projects[0].pname;
+               var status;
+               if(projects[0].__v>0)
+               {Version.find({projectname:projects[0]._id,versionNum:projects[0].__v},(err,p)=>{
+                 if(err){
+                   res.status(404).send({
+                     success: false,
+                     message:'Error: Server error'});
+                 }
+                 else if(p.length === 0){
 
-               var json = {pid: projects[0]._id, pname : projects[0].pname, pver:projects[0].__v};
-               //console.log(json);
-               pdetails.push(json);
-               //console.log(pdetails);
-               //console.log(projects);
-               //console.log(x);
+                   res.status(400).send({
+                     success: false,
+                     message: 'Error: Project does not exist', err: projects[0]});
+                 }
+                 else {
+                   x=x+1;
+                   //console.log(p[0]);
+                   status = p[0].status;
+                   //console.log(status);
+                   var json = {pid: p[0].projectname, pname : name, pver:p[0].versionNum, status:p[0].status};
+                   //console.log(json);
+                   pdetails.push(json);
+                   //console.log(pdetails);
+                   //console.log(projects);
+                   console.log(x);
+                   if(x===pid.length)
+                   {
+                     //console.log(pdetails);
+                     res.status(200).send({
+                       success:true,
+                       message: 'Projects found',
+                       pdetails: pdetails});
+                   }
+
+                 }
+               });}
+               //console.log(status);
+               else
+               {x=x+1;
+                 console.log(x);
                if(x===pid.length)
                {
                  //console.log(pdetails);
@@ -75,9 +111,11 @@ function reviewer(req,res,next) {
                    message: 'Projects found',
                    pdetails: pdetails});
                }
+             }
 
              }
            });}
+
 
 
 

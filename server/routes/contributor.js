@@ -48,7 +48,7 @@ function contributor(req,res,next) {
                  success: false,
                  message:'Error: Server error'});
              }
-             else if(existingUsers.length === 0){
+             else if(projects.length === 0){
                res.status(400).send({
                  success: false,
                  message: 'Error: Project does not exist'});

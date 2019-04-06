@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const CommentSchema = new mongoose.Schema({
-    
-    
-    pver:{type: Schema.Types.ObjectId, ref: 'ProjectVersion' },
-    timestamp:date,
+const CommentSchema = new Schema({
+
+    pid:{type: Schema.Types.ObjectId, ref: 'Project' },
+    pver:Number,
+    timestamp:Date,
     comment:String,
-    name:{type: Schema.Types.ObjectId, ref: 'Contributor' }
-    
-   
+    name:String
+
+
 });
 module.exports = mongoose.model('Comment', CommentSchema);

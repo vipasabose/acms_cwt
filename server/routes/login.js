@@ -68,7 +68,7 @@ function login(req,res,next) {
               message:'Logged in successfully',
               isReviewer: user.isReviewer,
               token: doc._id,
-              name: name
+              name: user.name
             });
           }
         });

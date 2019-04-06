@@ -26,6 +26,7 @@ function saveproject(req,res,next){
       projversion.versionNum=version+1;
       projversion.description=description;
       projversion.projectname=project[0]._id;
+      projversion.status=0;
 
       projversion.save((err,project)=>{
         if(err){
