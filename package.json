@@ -40,9 +40,9 @@
 
     "start": "npm run start:prod ",
     "start:prod": "nodemon server.js",
-    "client": "cd client && npm run start",
+    "views": "cd views && npm run start",
     "seed": "nodemon scripts/seedDB.js",
-    "install": "cd client && yarn install",
+    "install": "cd views && yarn install",
     "build": "cd views && npm start",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
