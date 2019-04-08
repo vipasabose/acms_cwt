@@ -38,13 +38,13 @@
   "devDependencies": {},
   "scripts": {
 
-    "start": "npm run start:prod ",
+    "start": "yarn run start:prod ",
     "start:prod": "nodemon server.js",
-    "views": "cd views && npm run start",
+    "views": "cd views && yarn run start",
     "seed": "nodemon scripts/seedDB.js",
     "install": "cd views && yarn install",
     "build": "cd views && yarn start",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "yarn run build",
     "test": "react-scripts test",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
