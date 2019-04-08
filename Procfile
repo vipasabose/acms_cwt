@@ -1,4 +1,4 @@
 "scripts": {
-  "start": "node index.js",
+  "start": "nodemon server.js",
   "heroku-postbuild": "cd views && npm install && npm run build"
 }
