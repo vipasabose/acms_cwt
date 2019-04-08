@@ -46,7 +46,6 @@
     "build": "cd views && yarn start",
     "heroku-postbuild": "yarn run build",
     "test": "react-scripts test",
-    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "author": "me",
