@@ -43,7 +43,7 @@
     "views": "cd views && npm run start",
     "seed": "nodemon scripts/seedDB.js",
     "install": "cd views && yarn install",
-    "build": "cd views && npm start",
+    "build": "cd views && yarn start",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
     "build": "react-scripts build",
