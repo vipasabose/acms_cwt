@@ -1,4 +1,4 @@
 "scripts": {
   "start": "node index.js",
-  "heroku-postbuild": "cd client && npm install && npm run build"
+  "heroku-postbuild": "cd views && npm install && npm run build"
 }
