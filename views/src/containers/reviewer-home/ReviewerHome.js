@@ -48,6 +48,11 @@ export default class ReviewerHome extends React.Component {
           }
       };
 
+    readClicked = (id) => {
+        // TODO this.state.selected hold the ID of the project, which we need to pass to API
+        alert(`read clicked for id ${id}`);
+    };
+
     render() {
         return (
             <>
@@ -62,7 +67,9 @@ export default class ReviewerHome extends React.Component {
                         </Card.Body>
                         <Card.Footer>
                             <div className='text-right'>
-                                <Button variant="primary">Read</Button> &nbsp;
+                                <Button variant="primary" onClick={() => this.readClicked(item.pid)}>
+                                    Read
+                                </Button> &nbsp;
                             </div>
                         </Card.Footer>
                     </Card>
