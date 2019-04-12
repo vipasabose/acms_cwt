@@ -1,10 +1,12 @@
 const Contributor = require('../models/ContributorSchema');
 const Reviewer = require('../models/ReviewerSchema');
 const Project = require('../models/ProjectSchema');
+const Enable = require('../models/EnableSchema');
 
 function newproject(req,res,next){
   const newProject = new Project();
   var PrReviewer = new Reviewer();
+  var User = new Enable();
   const PrContributor = new Array();
 
   const {body} = req;
@@ -95,6 +97,9 @@ function newproject(req,res,next){
           console.log(newProject);
           PrReviewer.reviewing.push(newProject);
           PrReviewer.save();
+          User.pid = newProject._id;
+          User.userid = 0;
+          User.save();
           for(i=0;i<PrContributor.length;i++){
             PrContributor[i].subscribing.push(newProject);
             PrContributor[i].save();

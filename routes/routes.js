@@ -10,6 +10,8 @@ var projectdesc = require('./displayprojects');
 var savecomment = require('./savecomment');
 var displaycomments = require('./displaycomments');
 var statusupdate = require('./statusupdate');
+var saveenable = require('./saveenable');
+
 const express = require('express');
 const router = express.Router();
 
@@ -23,8 +25,9 @@ const router = express.Router();
   router.post('/savecomment',savecomment);
   router.post('/displaycomments',displaycomments);
   router.post('/statusupdate',statusupdate);
-  //router.post('/verify',function(req, res,next){verify.verify});
-  //router.post('/logout',function(req, res,next){logout.logout});
+  router.post('/saveenable',saveenable);
+  router.post('/verify',verify);
+  router.post('/logout',logout);
 
 
 module.exports=router;

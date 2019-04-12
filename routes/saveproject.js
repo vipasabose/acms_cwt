@@ -1,5 +1,6 @@
 const Version = require('../models/ProjectVersionSchema');
 const Project = require('../models/ProjectSchema');
+const Enable = require('../models/EnableSchema');
 
 function saveproject(req,res,next){
   var projversion = new Version();
@@ -21,7 +22,19 @@ function saveproject(req,res,next){
     else {
       version = project[0].__v;
 
-
+      Enable.find({pid:project[0]._id},(err,user)=>{
+        if(err){
+          res.status(404).send({
+            success: false,
+            message:'Error: Server error'});
+        }
+        else {
+          var enuser = new Enable();
+          enuser = user[0];
+          enuser.userid = 0;
+          enuser.save();
+        }
+      });
       projectentry = project[0];
       projversion.versionNum=version+1;
       projversion.description=description;

@@ -8,7 +8,7 @@ const router = express.Router();
 function login(req,res,next) {
 
 
-    console.log(req.body);
+    //console.log(req.body);
     const {body} = req;
     const {
       pswd
