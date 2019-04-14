@@ -11,10 +11,7 @@ export default class Register extends React.Component {
         return(
             <Container>
                 <Row className="justify-content-md-center">
-                    <Col sm={6}>
-
-                    </Col>
-                    <Col sm={6}>
+                    <Col sm={12} xs={12} md={6}>
                         <RegisterForm history={this.props.history} isReviewer={false}/>
                     </Col>
                 </Row>

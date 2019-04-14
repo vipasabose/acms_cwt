@@ -38,11 +38,16 @@ export default class CustomNabvar extends React.Component {
         });
     };
 
+    goToHome = () => {
+      const routePath = this.props.isReviewer ? '/reviewerHome': '/home';
+      this.props.history.push(routePath);
+    };
+
     render() {
         return (
             <>
                 <Navbar bg="info" expand="lg" variant="dark">
-                    <Navbar.Brand href="#home">Home</Navbar.Brand>
+                    <Navbar.Brand onClick={this.goToHome}>Home</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">

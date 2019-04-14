@@ -93,7 +93,7 @@ export default class RegisterForm extends React.Component {
     render() {
         return (
             <Card>
-                <Card.Header>
+                <Card.Header style={{color: 'white', backgroundColor: '#17a2b8'}}>
                     <strong>REGISTER</strong>
                 </Card.Header>
                 <Card.Body>
@@ -115,13 +115,13 @@ export default class RegisterForm extends React.Component {
                         <Form.Group controlId="reviewer">
                             <Form.Check type="checkbox" label="Reviewer" onChange={this.handleToggle}/>
                         </Form.Group>
-                        <Button block disabled={!this.validateForm()} type="submit">
+                        <Button block disabled={!this.validateForm()} type="submit" variant="info">
                             Register
                         </Button>
                     </Form>
                 </Card.Body>
-                <Card.Footer>
-                    <Link to='/login'>Already a member? Click here to Login</Link>
+                <Card.Footer style={{textAlign: 'center'}}>
+                    <Link to='/login'  style={{color: '#17a2b8'}}>Already a member? Click here to Login</Link>
                 </Card.Footer>
             </Card>
         );

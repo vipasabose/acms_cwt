@@ -30,10 +30,7 @@ export default class Login extends React.Component {
         return (
             <Container>
                 <Row className="justify-content-md-center">
-                    <Col sm={6}>
-
-                    </Col>
-                    <Col sm={6}>
+                    <Col sm={12} xs={12} md={6}>
                         <LoginForm history={this.props.history}/>
                     </Col>
                 </Row>

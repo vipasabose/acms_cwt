@@ -21,3 +21,23 @@ export const getProjectsAPI = async (requestData) => {
 export const getReviewerProjectsAPI = async (requestData) => {
     return await axios.post(`${BASE_URL}/reviewer`, requestData);
 };
+
+export const postComments = async (requestData) => {
+    return await axios.post(`${BASE_URL}/savecomment`, requestData);
+};
+
+export const getAllComments = async (requestData) => {
+    return await axios.post(`${BASE_URL}/displaycomments`, requestData);
+};
+
+export const getProjectDetails = async (requestData) => {
+    return await axios.post(`${BASE_URL}/projectdesc`, requestData);
+};
+
+export const saveProject = async (requestData) => {
+    return await axios.post(`${BASE_URL}/saveProject`, requestData);
+};
+
+export const updateProjectStatus = async (requestData) => {
+    return await axios.post(`${BASE_URL}/statusupdate`, requestData);
+};

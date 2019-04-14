@@ -68,7 +68,7 @@ export default class LoginForm extends React.Component {
     componentDidUpdate() {
         if (this.state.authenticated && getData('token') && this.state.reviewer === true) {
             this.props.history.push("/reviewerHome");
-        } else if (this.state.authenticated && getData('token') && this.state.reviewer === false){
+        } else if (this.state.authenticated && getData('token') && this.state.reviewer === false) {
             this.props.history.push("/home");
         }
     }
@@ -102,7 +102,7 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <Card>
-                <Card.Header>
+                <Card.Header style={{color: 'white', backgroundColor: '#17a2b8'}}>
                     <strong>LOGIN</strong>
                 </Card.Header>
                 <Card.Body>
@@ -116,13 +116,13 @@ export default class LoginForm extends React.Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control value={this.state.password} onChange={this.handleChange} type="password"/>
                         </Form.Group>
-                        <Button block disabled={!this.validateForm()} type="submit">
+                        <Button block disabled={!this.validateForm()} type="submit" variant="info">
                             Login
                         </Button>
                     </Form>
                 </Card.Body>
-                <Card.Footer>
-                    <Link to='/createUser'>Not yet registered? Click here to Register</Link>
+                <Card.Footer style={{textAlign: 'center'}}>
+                    <Link to='/createUser' style={{color: '#17a2b8'}}>Not yet registered? Click here to Register</Link>
                 </Card.Footer>
             </Card>
         );
