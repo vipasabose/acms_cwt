@@ -76,7 +76,7 @@ export default class Contribute extends React.Component {
       const response = await saveProject(data);
       console.log(response);
       if (response.status === 201) {
-        await this.updateEnable();
+        // await this.updateEnable();
         toast.success(<Toaster message={"New version has been added"} />);
         this.props.history.push("/home");
       }
