@@ -76,12 +76,15 @@ function contributor(req,res,next) {
                      message:'Project does not exist'});
                  }
                  else {
-                   x=x+1;
+
+                   //console.log(user[0].userid);
                    if(user[0].userid==='0')
                    {
+                     x=x+1;
                      enstatus = 1;
                    }
                    else {
+                     x=x+1;
                      enstatus = 0;
                    }
 

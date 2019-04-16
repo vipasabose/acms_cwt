@@ -11,7 +11,7 @@ function saveproject(req,res,next){
     description
   }=body;
   var version;
-
+//console.log(pid);
 
   Project.find({_id:pid},(err,project)=>{
     if(err){
@@ -22,7 +22,9 @@ function saveproject(req,res,next){
     else {
       version = project[0].__v;
 
-      Enable.find({pid:project[0]._id},(err,user)=>{
+
+
+      Enable.find({pid:pid},(err,user)=>{
         if(err){
           res.status(404).send({
             success: false,
@@ -31,36 +33,58 @@ function saveproject(req,res,next){
         else {
           var enuser = new Enable();
           enuser = user[0];
-          enuser.userid = 0;
-          enuser.save();
+          //console.log(user[0]);
+          //console.log(enuser.userid);
+          console.log(enuser);
+          enuser.userid = '0';
+          console.log(enuser);
+          //console.log(enuser.userid);
+          if(enuser.userid==='0')
+          {enuser.save((err,en)=>{
+            if(err){
+              console.log(err);
+              res.status(404).send({
+                success: false,
+                message:'Error: Server error'});
+            }
+            else {
+              projectentry = project[0];
+              projversion.versionNum=version+1;
+              projversion.description=description;
+              projversion.projectname=project[0]._id;
+              projversion.status=0;
+
+              projversion.save((err,pv)=>{
+                if(err){
+                    res.status(404).send({
+                      success: false,
+                      message:'Error: Server error'});
+                  }
+                  else{
+
+                      //project.save();
+
+                      projectentry.versions.push(projversion._id);
+                      projectentry.save();
+                      res.status(201).send({
+                        success: true,
+                        message:'Project saved successfully'});
+                        //console.log(newProject.__v);
+                  }
+
+              });
+            }
+          });}
+          else {
+            console.log('I am mad');
+          }
+
         }
       });
-      projectentry = project[0];
-      projversion.versionNum=version+1;
-      projversion.description=description;
-      projversion.projectname=project[0]._id;
-      projversion.status=0;
 
-      projversion.save((err,project)=>{
-        if(err){
-            res.status(404).send({
-              success: false,
-              message:'Error: Server error'});
-          }
-          else{
 
-              //project.save();
-              projectentry.versions.push(projversion._id);
-              projectentry.save();
-              res.status(201).send({
-                success: true,
-                message:'Project saved successfully'});
-                //console.log(newProject.__v);
-          }
 
-      });
-
-      console.log(version);
+      //console.log(version);
     }
   });
 

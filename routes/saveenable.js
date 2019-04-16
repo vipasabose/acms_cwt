@@ -3,7 +3,7 @@ const Enable = require("../models/EnableSchema");
 function projectdesc(req, res, next) {
   const { body } = req;
   const { pid, userid } = body;
-  console.log(userid);
+  //console.log(userid);
   Enable.find({ pid: pid }, (err, project) => {
     if (err) {
       res.status(404).send({
@@ -18,10 +18,10 @@ function projectdesc(req, res, next) {
     } else {
       var projEnable = new Enable();
       projEnable = project[0];
-      console.log(projEnable);
+      //console.log(projEnable);
       if (projEnable.userid === '0') {
         projEnable.userid = userid;
-        console.log(projEnable);
+        //console.log(projEnable);
         projEnable.save();
         res.status(200).send({
           success: true,
