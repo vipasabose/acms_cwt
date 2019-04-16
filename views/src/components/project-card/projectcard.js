@@ -58,6 +58,7 @@ export default class ProjectCard extends React.Component {
   };
 
   contributorClicked = () => {
+    alert(this.props.enstatus);
     if (this.state.selected < this.props.version) {
       toast.warn(
         <Toaster
@@ -69,7 +70,7 @@ export default class ProjectCard extends React.Component {
       return;
     }
 
-    if (this.props.enstatus) {
+    if (this.props.enstatus === 0) {
       toast.info(
         <Toaster message={"Sorry! Project is already being edited."} />
       );

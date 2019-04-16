@@ -87,6 +87,7 @@ export default class Home extends React.Component {
                         version={item.pver || 0}
                         history={this.props.history}
                         id={item.pid}
+                        enstatus={item.enstatus}
                       />
                     }
                   </div>
