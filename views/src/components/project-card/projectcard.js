@@ -58,7 +58,6 @@ export default class ProjectCard extends React.Component {
   };
 
   contributorClicked = () => {
-    alert(this.props.enstatus);
     if (this.state.selected < this.props.version) {
       toast.warn(
         <Toaster
@@ -77,7 +76,13 @@ export default class ProjectCard extends React.Component {
       return;
     }
 
-    const params = { id: this.props.id, version: this.props.version };
+    const params = {
+      id: this.props.id,
+      version: this.props.version,
+      title: this.props.title,
+      contributors: this.props.contributors,
+      reviewer: this.props.reviewer
+    };
     this.props.history.push(`/project/contribute`, params);
   };
 
@@ -108,9 +113,7 @@ export default class ProjectCard extends React.Component {
                   id="dropdown-basic-button"
                   variant="outline-secondary"
                   title={
-                    this.state.selected > 0
-                      ? this.state.selected
-                      : "Select a version"
+                    this.state.selected > 0 ? this.state.selected : "Select"
                   }
                   onSelect={event => this.handleSelected(event)}
                 >

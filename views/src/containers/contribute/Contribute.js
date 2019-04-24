@@ -26,7 +26,6 @@ export default class Contribute extends React.Component {
     if (illegal || !getData("token")) {
       this.props.history.push("/home");
     }
-
     this.setState({
       id: this.props.location.state.id,
       version: this.props.location.state.version
@@ -127,6 +126,7 @@ export default class Contribute extends React.Component {
             <div className="pb-2 mt-4 mb-2 border-bottom">
               <h3>{this.state.title}</h3>
             </div>
+            <span>Contributors :</span>
             {this.state.contributors.map((item, index) => (
               <span className="badge badge-info ml-3 mb-3" key={index}>
                 {" "}
@@ -134,7 +134,11 @@ export default class Contribute extends React.Component {
               </span>
             ))}
             &nbsp; &nbsp;
+            <br />
+            <span>Reviewer :</span>
+            &nbsp; &nbsp;
             <span className="badge badge-warning"> {this.state.reviewer} </span>
+            <br />
             <div className={"container"}>
               <div className="container mt-5">
                 <Form.Group controlId="description">

@@ -172,10 +172,12 @@ export default class Read extends React.Component {
               <blockquote class="blockquote p- text-dark">
                 <h6>{data.item.comment}</h6>
                 <footer class="blockquote-footer">
+                  <br />
                   Posted by: <b>{data.item.name}</b> &nbsp;
                   <span>
-                    <small>on {dateString}</small>
+                    <small>on {dateString}</small> &nbsp;
                   </span>
+                  (for version: <b>{data.item.pver}</b>)&nbsp;
                 </footer>
               </blockquote>
             </div>
@@ -239,6 +241,7 @@ export default class Read extends React.Component {
               </div>
               <h3>{this.state.title}</h3>
             </div>
+            <span>Contributors :</span>
             {this.state.contributors.map((item, index) => (
               <span className="badge badge-info ml-3 mb-3" key={index}>
                 {" "}
@@ -246,7 +249,12 @@ export default class Read extends React.Component {
               </span>
             ))}
             &nbsp; &nbsp;
+            <br />
+            <span>Reviewer :</span>
+            &nbsp; &nbsp;
             <span className="badge badge-warning"> {this.state.reviewer} </span>
+            <br />
+            <br />
             <div className={"container"}>
               <Card>
                 <Card.Body>
@@ -296,7 +304,7 @@ export default class Read extends React.Component {
             ) : (
               <div className={"jumbotron text-center"}>
                 <p>
-                  No one has commented yet, but don't be sad. <br />
+                  No one has commented yet. <br />
                   You can post your comment for this project by simply using the
                   comment box above.
                 </p>
