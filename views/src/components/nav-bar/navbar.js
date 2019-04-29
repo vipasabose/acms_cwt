@@ -58,7 +58,7 @@ export default class CustomNabvar extends React.Component {
                 </Nav.Link>
               ) : null}
             </Nav>
-            <Nav pullRight>
+            <Nav>
               <Nav.Link onClick={this.openDropDown}>Log Out</Nav.Link>
             </Nav>
           </Navbar.Collapse>

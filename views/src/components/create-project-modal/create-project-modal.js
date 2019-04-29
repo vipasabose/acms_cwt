@@ -39,17 +39,13 @@ export default class CreateProjectModal extends React.Component {
       reviewer: this.state.reviewer,
       contributors: this.state.contributors.join(",")
     };
-    // if (requestData.contributors.length) {
-    //   toast.error(<Toaster message={"Please provide valid data."} />);
-    //   return;
-    // }
 
     try {
       const response = await createProjectAPI(requestData);
       if (response.status === 201) {
         toast.success(<Toaster message={response.data.message} />);
         this.props.openCreateProjectModal();
-        this.props.addProjects(requestData);
+        this.props.addProjects();
         this.reset();
       }
     } catch (e) {

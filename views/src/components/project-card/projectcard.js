@@ -25,9 +25,6 @@ export default class ProjectCard extends React.Component {
         disableRead: true
       });
     }
-    if (this.props.version > 0) {
-      this.setState({ selected: this.props.version });
-    }
   }
 
   loadData = () => {
@@ -78,12 +75,13 @@ export default class ProjectCard extends React.Component {
       );
       return;
     }
+
     const params = {
       id: this.props.id,
       version: this.props.version,
-      title: this.props.title
-      // contributors: this.props.contributors,
-      // reviewer: this.props.reviewer
+      title: this.props.title,
+      contributors: this.props.contributors,
+      reviewer: this.props.reviewer
     };
     this.props.history.push(`/project/contribute`, params);
   };
@@ -115,9 +113,7 @@ export default class ProjectCard extends React.Component {
                   id="dropdown-basic-button"
                   variant="outline-secondary"
                   title={
-                    this.state.selected > 0
-                      ? this.state.selected
-                      : "Select a version"
+                    this.state.selected > 0 ? this.state.selected : "Select"
                   }
                   onSelect={event => this.handleSelected(event)}
                 >
@@ -152,7 +148,7 @@ export default class ProjectCard extends React.Component {
               // disabled={this.state.disableContribute}
               onClick={this.contributorClicked}
             >
-              <div title={this.props.id} style={{ flex: 1 }} className={"mt-3"}>
+              <div style={{ flex: 1 }} className={"mt-3"}>
                 <h6 style={{ color: "white", textAlign: "center" }}>
                   Contribute
                 </h6>

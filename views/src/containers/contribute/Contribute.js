@@ -28,8 +28,7 @@ export default class Contribute extends React.Component {
     }
     this.setState({
       id: this.props.location.state.id,
-      version: this.props.location.state.version,
-      title: this.props.location.state.title
+      version: this.props.location.state.version
     });
   }
 
@@ -92,9 +91,9 @@ export default class Contribute extends React.Component {
   };
 
   getProjectDetails = async () => {
-    // if (!this.state.version) {
-    //   return;
-    // }
+    if (!this.state.version) {
+      return;
+    }
 
     try {
       const data = {
