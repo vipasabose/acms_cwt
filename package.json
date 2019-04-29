@@ -45,11 +45,11 @@
     "seed": "nodemon scripts/seedDB.js",
     "install": "cd views && npm install",
     "build": "cd views && npm start",
-    "heroku-postbuild": "cd views && npm install --only=dev && npm install && npm run build",
+    "heroku-postbuild": "cd views && npms install --only=dev && npm install && npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://collaborativewriting.herokuapp.com/",
+
   "author": "me",
   "license": "ISC",
   "private": true,
