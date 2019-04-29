@@ -1,9 +1,11 @@
 import axios from "axios";
 
 //export const BASE_URL = "http://localhost:8080";
-const production  = 'https://collaborativewriting.herokuapp.com/';
+/*const production  = 'https://collaborativewriting.herokuapp.com/';
 const development = 'http://localhost:8000/';
-export const BASE_URL = (process.env.NODE_ENV ? production : development);
+export const BASE_URL = (process.env.NODE_ENV ? production : development);*/
+
+export const BASE_URL = window.location.origin;
 
 export const loginAPI = async requestData => {
   return await axios.post(`${BASE_URL}/login`, requestData);
