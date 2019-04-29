@@ -29,7 +29,8 @@ mongoose.connection
   });
 //require('./models/product');
 //require('./models/user');
-app.use(express.static('views'));
+//app.use(express.static('views'));
+app.use(express.static(path.join(__dirname, "views", "build")))
 
 
 app.use(bodyParser.json());
@@ -46,6 +47,9 @@ app.use('/',routes);
 //app.use(function (err,req,res,next) {
 
 //})
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 //listening for requests
 app.listen(process.env.port || 8080);//process.env.port for heroku
