@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//export const BASE_URL = "http://localhost:8080";
-export const BASE_URL = "https://collaborativewriting.herokuapp.com/";
+export const BASE_URL = "http://localhost:8080";
+
 export const loginAPI = async requestData => {
   return await axios.post(`${BASE_URL}/login`, requestData);
 };
