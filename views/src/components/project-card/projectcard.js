@@ -58,6 +58,7 @@ export default class ProjectCard extends React.Component {
   };
 
   contributorClicked = () => {
+    console.log(this.state.selected, this.props.version);
     if (this.state.selected < this.props.version) {
       toast.warn(
         <Toaster
@@ -83,6 +84,7 @@ export default class ProjectCard extends React.Component {
       contributors: this.props.contributors,
       reviewer: this.props.reviewer
     };
+    console.log(params);
     this.props.history.push(`/project/contribute`, params);
   };
 
@@ -96,6 +98,12 @@ export default class ProjectCard extends React.Component {
       { isReviewer: false }
     );
   };
+
+  componentDidMount() {
+    this.setState({
+      selected: this.props.version
+    });
+  }
 
   render() {
     return (
