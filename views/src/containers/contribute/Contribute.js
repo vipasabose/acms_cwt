@@ -2,7 +2,12 @@ import React from "react";
 import CustomNavbar from "../../components/nav-bar/navbar";
 import { getData } from "../../utils/storage";
 import { Button, Form } from "react-bootstrap";
-import { getProjectDetails, saveProject, saveEnable } from "../../utils/HTTP";
+import {
+  getProjectDetails,
+  saveProject,
+  saveEnable,
+  cancelLock
+} from "../../utils/HTTP";
 import { toast } from "react-toastify";
 
 const Toaster = ({ message }) => <div>{message}</div>;
@@ -65,6 +70,25 @@ export default class Contribute extends React.Component {
     }
   };
 
+  cancelEnable = async () => {
+    const requestData = {
+      pid: this.state.id
+    };
+    try {
+      console.log(requestData.pid);
+      const response = await cancelLock(requestData);
+
+      if (response.status === 201) {
+        toast.success(
+          <Toaster message={"We are cancelling lock status for other users."} />
+        );
+        this.props.history.push("/home");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   saveProject = async () => {
     try {
       const data = {
@@ -91,10 +115,6 @@ export default class Contribute extends React.Component {
   };
 
   getProjectDetails = async () => {
-    if (!this.state.version) {
-      return;
-    }
-
     try {
       const data = {
         pid: this.state.id,
@@ -149,7 +169,12 @@ export default class Contribute extends React.Component {
                     onChange={this.handleChange}
                   />
                 </Form.Group>
+
                 <div className={"text-right"}>
+                  <Button variant="outline-info" onClick={this.cancelEnable}>
+                    Cancel
+                  </Button>
+                  &nbsp;
                   <Button variant="outline-info" onClick={this.saveProject}>
                     Save Project
                   </Button>

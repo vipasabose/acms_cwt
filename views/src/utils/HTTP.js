@@ -45,3 +45,7 @@ export const updateProjectStatus = async requestData => {
 export const saveEnable = async requestData => {
   return await axios.post(`${BASE_URL}/saveenable`, requestData);
 };
+
+export const cancelLock = async requestData => {
+  return await axios.post(`${BASE_URL}/cancel`, requestData);
+};

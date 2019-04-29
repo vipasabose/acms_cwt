@@ -1,76 +1,123 @@
-const Version = require('../models/ProjectVersionSchema');
-const Project = require('../models/ProjectSchema');
-const Contributor = require('../models/ContributorSchema');
-const Reviewer = require('../models/ReviewerSchema');
+const Version = require("../models/ProjectVersionSchema");
+const Project = require("../models/ProjectSchema");
+const Contributor = require("../models/ContributorSchema");
+const Reviewer = require("../models/ReviewerSchema");
 
-function projectdesc(req,res,next){
-  const {body} = req;
-  const {
-    pid,
-    versionNum
-  }=body;
+function projectdesc(req, res, next) {
+  const { body } = req;
+  const { pid, versionNum } = body;
 
-  Version.find({projectname:pid,versionNum:versionNum},(err,project)=>{
-    if(err){
+  Version.find({ projectname: pid, versionNum: versionNum }, (err, project) => {
+    console.log(project.length);
+    if (err) {
       res.status(404).send({
         success: false,
-        message:'Error: Server error'});
-    }
-    else{
-      Project.find({_id:pid},(err,p)=>{
-        if(err){
+        message: "Error: Server error"
+      });
+    } else if (project.length === 0) {
+      console.log("I was here");
+      Project.find({ _id: pid }, (err, p) => {
+        if (err) {
           res.status(404).send({
             success: false,
-            message:'Error: Server error'});
-        }
-        else {
+            message: "Error: Server error"
+          });
+        } else {
           var projectreviewer;
           var contributors = new Array();
           var contributornames = new Array();
           contributors = p[0].contributors;
-          Reviewer.find({_id:p[0].reviewer},(err,prreviewer)=>{
-            if(err){
+          Reviewer.find({ _id: p[0].reviewer }, (err, prreviewer) => {
+            if (err) {
               res.status(404).send({
                 success: false,
-                message:'Error: Server error'});
-            }
-            else {
+                message: "Error: Server error"
+              });
+            } else {
               projectreviewer = prreviewer[0].reviewer;
-              var x=0;
-              for(i=0;i<contributors.length;i++)
-              {
-                Contributor.find({_id:contributors[i]},(err,c)=>{
-                  if(err){
+              var x = 0;
+              for (i = 0; i < contributors.length; i++) {
+                Contributor.find({ _id: contributors[i] }, (err, c) => {
+                  if (err) {
                     res.status(404).send({
                       success: false,
-                      message:'Error: Server error'});
-                  }
-                  else {
-                    x=x+1;
+                      message: "Error: Server error"
+                    });
+                  } else {
+                    x = x + 1;
                     contributornames.push(c[0].name);
-                    console.log(x);
-                    if(x===contributors.length)
-                    {
-                      res.status(200).send({
-                        success:true,
-                        message: 'Project found',
-                        description: project[0].description,
-                        pname:p[0].pname,
-                        reviewer:projectreviewer,
-                        contributors:contributornames
-                      });
+                    //console.log(x);
+                    if (x === contributors.length) {
+                      const data = {
+                        success: true,
+                        message: "Project found",
+                        description: project[0] ? project[0].description : "",
+                        pname: p[0].pname,
+                        reviewer: projectreviewer,
+                        contributors: contributornames
+                      };
+                      res.status(200).send(data);
                     }
                   }
                 });
               }
             }
           });
-
         }
       });
+    } else {
+      Project.find({ _id: pid }, (err, p) => {
+        if (err) {
+          res.status(404).send({
+            success: false,
+            message: "Error: Server error"
+          });
+        } else {
+          var projectreviewer;
+          var contributors = new Array();
+          var contributornames = new Array();
+          contributors = p[0].contributors;
+          Reviewer.find({ _id: p[0].reviewer }, (err, prreviewer) => {
+            if (err) {
+              res.status(404).send({
+                success: false,
+                message: "Error: Server error"
+              });
+            } else {
+              projectreviewer = prreviewer[0].reviewer;
+              var x = 0;
+              for (i = 0; i < contributors.length; i++) {
+                Contributor.find({ _id: contributors[i] }, (err, c) => {
+                  if (err) {
+                    res.status(404).send({
+                      success: false,
+                      message: "Error: Server error"
+                    });
+                  } else {
+                    x = x + 1;
+                    contributornames.push(c[0].name);
 
+                    //console.log(x);
+                    if (x === contributors.length) {
+                      const data = {
+                        success: true,
+                        message: "Project found",
+                        description: project[0] ? project[0].description : "",
+                        pname: p[0].pname,
+                        reviewer: projectreviewer,
+                        contributors: contributornames
+                      };
+                      res.status(200).send(data);
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
     }
   });
-};
+}
 
-module.exports=projectdesc;
+module.exports = projectdesc;

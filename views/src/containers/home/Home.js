@@ -46,6 +46,8 @@ export default class Home extends React.Component {
       userid: localStorage.getItem("userid")
     };
 
+    this.setState({ projects: [] });
+
     try {
       const response = await getProjectsAPI(requestData);
       if (response.status === 200) {
@@ -70,7 +72,7 @@ export default class Home extends React.Component {
       <>
         <CustomNavbar
           history={this.props.history}
-          addProjects={this.addProjects}
+          addProjects={() => setTimeout(this.fetchProjectList, 5000)}
         />
         <div className={"container"}>
           <div className="pb-2 mt-4 mb-2 border-bottom">
@@ -78,21 +80,23 @@ export default class Home extends React.Component {
           </div>
           <div className="container pb-2 mt-4 mb-2">
             {this.state.projects.length ? (
-              this.state.projects.map((item, index) => (
-                <li key={index} style={{ listStyleType: "none" }}>
-                  <div className="container mt-2 ml-10 mr-10">
-                    {
-                      <ProjectCard
-                        title={item.pname}
-                        version={item.pver || 0}
-                        history={this.props.history}
-                        id={item.pid}
-                        enstatus={item.enstatus}
-                      />
-                    }
-                  </div>
-                </li>
-              ))
+              this.state.projects.map((item, index) => {
+                return (
+                  <li key={index} style={{ listStyleType: "none" }}>
+                    <div className="container mt-2 ml-10 mr-10">
+                      {
+                        <ProjectCard
+                          title={item.pname}
+                          version={item.pver || 0}
+                          history={this.props.history}
+                          id={item.pid}
+                          enstatus={item.enstatus}
+                        />
+                      }
+                    </div>
+                  </li>
+                );
+              })
             ) : (
               <div className={"jumbotron text-center"}>
                 <WelcomeText />
