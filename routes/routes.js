@@ -11,6 +11,7 @@ var savecomment = require('./savecomment');
 var displaycomments = require('./displaycomments');
 var statusupdate = require('./statusupdate');
 var saveenable = require('./saveenable');
+var cancel = require('./cancel');
 
 const express = require('express');
 const router = express.Router();
@@ -26,6 +27,7 @@ const router = express.Router();
   router.post('/displaycomments',displaycomments);
   router.post('/statusupdate',statusupdate);
   router.post('/saveenable',saveenable);
+  router.post('/cancel',cancel);
   router.post('/verify',verify);
   router.post('/logout',logout);
 
